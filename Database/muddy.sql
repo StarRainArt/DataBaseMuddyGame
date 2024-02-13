@@ -29,3 +29,21 @@ INSERT INTO muddy.being (name, description) VALUES
 INSERT INTO muddy.user (name, puppet) VALUES
     ('teacher', 1),
 	('student', 2);
+
+CREATE TABLE muddy.room (
+	node INT NOT NULL AUTO_INCREMENT,
+	location VARCHAR(50),
+	description VARCHAR(200),
+
+	PRIMARY KEY (node)
+);
+
+CREATE TABLE muddy.room_directions (
+	id INT NOT NULL AUTO_INCREMENT,
+	current_room INT,
+	direction VARCHAR(10),
+	destination VARCHAR(50)
+
+	PRIMARY KEY (id),
+	FOREIGN KEY (current_room) REFERENCES muddy.room(node)
+)
