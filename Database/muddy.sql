@@ -42,7 +42,7 @@ CREATE TABLE muddy.room_directions (
 	id INT NOT NULL AUTO_INCREMENT,
 	current_room INT,
 	direction VARCHAR(10),
-	destination INT
+	destination INT,
 
 	PRIMARY KEY (id),
 	FOREIGN KEY (current_room) REFERENCES muddy.room(node)
