@@ -27,15 +27,19 @@ INSERT INTO muddy.being (name, description) VALUES
 	('cute rabbit', 'this rabbit is so cute, you would not hit it even if it was eating your foot, aaaaaawwwwwwhhhhh');
 
 INSERT INTO muddy.user (name, puppet) VALUES
-    ('teacher', 1),
+   ('teacher', 1),
 	('student', 2);
+
+
 
 CREATE TABLE muddy.room (
 	node INT NOT NULL AUTO_INCREMENT,
 	location VARCHAR(50),
+	characters INT,
 	description VARCHAR(200),
 
-	PRIMARY KEY (node)
+	PRIMARY KEY (node),
+	FOREIGN KEY(characters) REFERENCES muddy.being(id)
 );
 
 CREATE TABLE muddy.room_directions (
@@ -48,9 +52,9 @@ CREATE TABLE muddy.room_directions (
 	FOREIGN KEY (current_room) REFERENCES muddy.room(node)
 );
 
-INSERT INTO muddy.room (location, description) VALUES
+INSERT INTO muddy.room (location, DESCRIPTION, character) VALUES
 	("Meadow", "A peaceful looking meadow, with lots of flowers"),
-	("Forest", "A dark looking forest, you'd rather not be here");
+	("Forest", "A dark looking forest, you'd rather not be here", "2");
 
 INSERT INTO muddy.room_directions (current_room, direction, destination) VALUES
 	(1, "North", 2),
