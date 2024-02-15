@@ -42,8 +42,16 @@ CREATE TABLE muddy.room_directions (
 	id INT NOT NULL AUTO_INCREMENT,
 	current_room INT,
 	direction VARCHAR(10),
-	destination VARCHAR(50)
+	destination INT
 
 	PRIMARY KEY (id),
 	FOREIGN KEY (current_room) REFERENCES muddy.room(node)
-)
+);
+
+INSERT INTO muddy.room (location, description) VALUES
+	("Meadow", "A peaceful looking meadow, with lots of flowers"),
+	("Forest", "A dark looking forest, you'd rather not be here");
+
+INSERT INTO muddy.room_directions (current_room, direction, destination) VALUES
+	(1, "North", 2),
+	(2, "South", 1);
