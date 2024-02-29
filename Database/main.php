@@ -107,6 +107,7 @@
      * you are connected to in the database.
      */
     $my_username = 'teacher'; // you can also use 'student' or add your own
+    $starter_room = "1";
 
     $sql = "SELECT puppet FROM user WHERE name = :player_name";
     $stmt = $conn->prepare($sql);
@@ -115,6 +116,15 @@
     $puppet = $stmt->fetch(PDO::FETCH_ASSOC)['puppet'];
 
     echo "you are playing puppet number {$puppet}\n";
+
+    $sql = "SELECT location FROM room WHERE node = :starter_room";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':starter_room', $starter_room);
+    $stmt->execute();
+    $room = $stmt->fetch(PDO::FETCH_ASSOC)['location'];
+
+    echo "you are in room {$room}\n";
+
 while (true) {
     /**
      * this loop is the actual game, 2 lines of code....
