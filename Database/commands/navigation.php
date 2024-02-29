@@ -23,13 +23,6 @@
                 default:
                     echo "Where are we moving? \n";
             };
-
-
-            /*if($arguments[0] == 'east'){
-                echo "Testing \n";
-            } else {
-                echo "Try a different direction";
-            }; */
             //echo "we all want to go {$arguments[0]} but it just doesn't work until you code it..\n";
     }
 ?>
