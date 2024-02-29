@@ -5,7 +5,7 @@
          * move character over nodes to other rooms
          * the first argument is the direction (node name)
          */
-            $direction = $arguments;
+            $direction = $arguments[0];
 
             switch($direction){
                 case 'east':
