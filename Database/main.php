@@ -107,7 +107,7 @@
      * you are connected to in the database.
      */
     $my_username = 'teacher'; // you can also use 'student' or add your own
-    $starter_room = "1";
+    $starter_room = 1;
 
     $sql = "SELECT puppet FROM user WHERE name = :player_name";
     $stmt = $conn->prepare($sql);
@@ -124,6 +124,12 @@
     $room = $stmt->fetch(PDO::FETCH_ASSOC)['location'];
 
     echo "you are in room {$room}\n";
+
+    // $sql = "UPDATE being SET current_room=:first_room WHERE id=1";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->bindParam(':first_room', $starter_room);
+    // $stmt->execute();
+    // $current_room = $stmt->fetch(PDO::FETCH_ASSOC)['current_room'];
 
 while (true) {
     /**
