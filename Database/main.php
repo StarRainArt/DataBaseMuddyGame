@@ -119,11 +119,11 @@
 
     $sql = "SELECT location FROM room WHERE node = :starter_room";
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':starter_room', $starter_room);
+    $stmt->bindParam(':starter_room', $starter_room, PDO::PARAM_INT);
     $stmt->execute();
-    $room = $stmt->fetch(PDO::FETCH_ASSOC)['location'];
-
-    echo "you are in room {$room}\n";
+    $room = $stmt->fetchColumn();
+    
+    echo "You are in room {$room}\n";
 
 while (true) {
     /**
