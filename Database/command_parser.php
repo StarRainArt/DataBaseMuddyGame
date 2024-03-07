@@ -32,14 +32,26 @@
         }
         $arguments = explode(" ", $raw_command);
         $command = $arguments[0];
-
-        if (isset($command_to_function_list[$command])) {
-            // execute the command with the remaining user input
-            // we hand the function the $arguments, the $puppet and the $conn
-            $command_to_function_list[$command]($arguments, $puppet, $conn);
-        } else {
-            // handle invalid commands 
-            echo "you want me to do what now?\n";
+        
+        if (isset($command_to_function_list[$raw_command])) {
+            $command_function = $command_to_function_list[$raw_command];
+            $command_function($arguments, $puppet, $conn);
+        }
+        // Check if the command is a two-word command
+        elseif (count($arguments) > 1) {
+            $two_word_command = $arguments[0] . ' ' . $arguments[1];
+            if (isset($command_to_function_list[$two_word_command])) {
+                $command_function = $command_to_function_list[$two_word_command];
+                array_shift($arguments); // Remove the first word
+                array_shift($arguments); // Remove the second word
+                $command_function($arguments, $puppet, $conn);
+            } else {
+                echo "I don't understand what you want me to do.\n";
+            }
+        }
+        // Handle invalid commands
+        else {
+            echo "I don't understand what you want me to do.\n";
         }
     }
 ?>

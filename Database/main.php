@@ -90,7 +90,7 @@
         'east' => 'navigate',
         'south' => 'navigate',
         'west' => 'navigate',
-        'look' => 'look');
+        'look around' => 'look_current_room');
 
     /**
      * the final step before the game starts is you!
@@ -124,6 +124,12 @@
     $room = $stmt->fetchColumn();
     
     echo "You are in room {$room}\n";
+
+    $sql = "UPDATE user SET current_room = :starter_room WHERE name = :player_name";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':starter_room', $starter_room, PDO::PARAM_INT);
+    $stmt->bindParam(':player_name', $my_username);
+    $stmt->execute();
 
 while (true) {
     /**
