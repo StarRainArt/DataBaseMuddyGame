@@ -90,7 +90,9 @@
         'east' => 'navigate',
         'south' => 'navigate',
         'west' => 'navigate',
-        'look around' => 'look_current_room');
+        'look around' => 'look_current_room',
+        'directions' => 'look_directions');
+
 
     /**
      * the final step before the game starts is you!
