@@ -37,19 +37,19 @@
             $command_function = $command_to_function_list[$raw_command];
             $command_function($arguments, $puppet, $conn);
         }
-        // Check if the command is a two-word command
+        
         elseif (count($arguments) > 1) {
             $two_word_command = $arguments[0] . ' ' . $arguments[1];
             if (isset($command_to_function_list[$two_word_command])) {
                 $command_function = $command_to_function_list[$two_word_command];
-                array_shift($arguments); // Remove the first word
-                array_shift($arguments); // Remove the second word
+                array_shift($arguments); 
+                array_shift($arguments); 
                 $command_function($arguments, $puppet, $conn);
             } else {
                 echo "I don't understand what you want me to do.\n";
             }
         }
-        // Handle invalid commands
+
         else {
             echo "I don't understand what you want me to do.\n";
         }
