@@ -119,6 +119,12 @@
 
     echo "you are playing puppet number {$puppet}\n";
 
+    $sql = "UPDATE user SET current_room = :start_room WHERE name = :player_name";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':player_name', $player_name);
+    $stmt->bindParam(':start_room', $starter_room);
+    $stmt->execute();
+
     $sql = "SELECT location FROM room WHERE node = :starter_room";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':starter_room', $starter_room, PDO::PARAM_INT);

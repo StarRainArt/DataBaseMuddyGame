@@ -11,7 +11,6 @@ CREATE TABLE muddy.being (
 	PRIMARY KEY (id)
 );
 
-
 -- users are... you
 -- as a user you can play any being you like
 CREATE TABLE muddy.user (
