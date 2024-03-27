@@ -17,7 +17,7 @@ function look_current_room($arguments, $puppet, $conn) {
       $stmt->execute();
       $room_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-      echo "You are in room {$room_data['location']}. {$room_data['description']}\n";
+      echo "You are {$room_data['location']}.\n{$room_data['description']}.\n";
 }
 
 function look_directions($arguments, $puppet, $conn) {

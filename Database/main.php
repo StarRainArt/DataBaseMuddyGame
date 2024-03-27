@@ -118,6 +118,7 @@
     $puppet = $stmt->fetch(PDO::FETCH_ASSOC)['puppet'];
 
     echo "you are playing puppet number {$puppet}\n";
+    echo "You find yourself laying down on a grassy field, unconscious. As the sunlight gently caresses your face you slowly open your eyes.\nYou calmly stand up and take a look around.\n\n";
 
     $sql = "UPDATE user SET current_room = :start_room WHERE name = :player_name";
     $stmt = $conn->prepare($sql);
@@ -125,13 +126,13 @@
     $stmt->bindParam(':start_room', $starter_room);
     $stmt->execute();
 
-    $sql = "SELECT location FROM room WHERE node = :starter_room";
+    $sql = "SELECT location, description FROM room WHERE node = :starter_room";
     $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':starter_room', $starter_room, PDO::PARAM_INT);
+    $stmt->bindParam(':starter_room', $starter_room);
     $stmt->execute();
-    $room = $stmt->fetchColumn();
+    $room = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    echo "You are in room {$room}\n";
+    echo "You find yourself {$room['location']}.\n{$room['description']}.\n";
 
     $sql = "UPDATE user SET current_room = :starter_room WHERE name = :player_name";
     $stmt = $conn->prepare($sql);
