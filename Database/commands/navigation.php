@@ -28,7 +28,6 @@
 
         
         if (in_array($arguments[0], $directions_data)){
-            echo "You can go $arguments[0]\n";
             $dest_arg = $arguments[0];
 
             $sql = "SELECT destination FROM room_directions WHERE current_room = :room_node AND direction = :dest_arg";
@@ -62,7 +61,7 @@
             $stmt->execute();
             $room_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            echo "You are in room {$room_data['location']}. {$room_data['description']}\n";
+            echo "You are {$room_data['location']}.\n{$room_data['description']}.\n";
         }
         else {
             echo "You can't go here \n";
