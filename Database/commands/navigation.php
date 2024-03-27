@@ -62,6 +62,10 @@
             $room_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
             echo "You are {$room_data['location']}.\n{$room_data['description']}.\n";
+
+            if ($current_room_id == 12) {
+                exit();
+            }
         }
         else {
             echo "You can't go here \n";
