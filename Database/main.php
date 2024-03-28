@@ -25,8 +25,8 @@
     
     echo "\033[32mdone!\033[0m\n\n";
 
-    $name_of_my_game = "fluffy world";
-    echo "\033[96mWelcome to $name_of_my_game, start typing and enjoy!\033[0m\n";
+    $name_of_my_game = "Quest World (?)";
+    echo "\033[96mWelcome to \033[95m$name_of_my_game\033[96m, start typing and enjoy!\033[0m\n";
     echo "type 'help' for help or 'look' to have a look around\n\n";
 
     /**
