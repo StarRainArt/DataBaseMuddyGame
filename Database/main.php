@@ -92,7 +92,8 @@
         'west' => 'navigate',
         'look around' => 'look_current_room',
         'directions' => 'look_directions',
-        'look at' => 'look_at');
+        'look creature' => 'look_at',
+        'talk creature' => 'talk_to');
 
 
     /**
@@ -118,7 +119,6 @@
     $stmt->execute();
     $puppet = $stmt->fetch(PDO::FETCH_ASSOC)['puppet'];
 
-    echo "you are playing puppet number {$puppet}\n";
     echo "You find yourself laying down on a grassy field, unconscious. As the sunlight gently caresses your face you slowly open your eyes.\nYou calmly stand up and take a look around.\n\n";
 
     $sql = "UPDATE user SET current_room = :start_room WHERE name = :player_name";
@@ -132,8 +132,14 @@
     $stmt->bindParam(':starter_room', $starter_room);
     $stmt->execute();
     $room = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $sql = "SELECT name FROM creatures WHERE room = :room_node";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':room_node', $starter_room);
+    $stmt->execute();
+    $creature = $stmt->fetch(PDO::FETCH_ASSOC);
     
-    echo "You find yourself {$room['location']}.\n{$room['description']}.\n";
+    echo "You find yourself \033[94m{$room['location']}\033[0m.\n{$room['description']}.\nYou see a \033[93m{$creature['name']}\033[0m\n";
 
     $sql = "UPDATE user SET current_room = :starter_room WHERE name = :player_name";
     $stmt = $conn->prepare($sql);
