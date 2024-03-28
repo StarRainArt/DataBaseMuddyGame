@@ -25,8 +25,8 @@
     
     echo "\033[32mdone!\033[0m\n\n";
 
-    $name_of_my_game = "fluffy world";
-    echo "\033[96mWelcome to $name_of_my_game, start typing and enjoy!\033[0m\n";
+    $name_of_my_game = "Quest World (?)";
+    echo "\033[96mWelcome to \033[95m$name_of_my_game\033[96m, start typing and enjoy!\033[0m\n";
     echo "type 'help' for help or 'look' to have a look around\n\n";
 
     /**
@@ -90,7 +90,11 @@
         'east' => 'navigate',
         'south' => 'navigate',
         'west' => 'navigate',
-        'look' => 'look');
+        'look around' => 'look_current_room',
+        'directions' => 'look_directions',
+        'look creature' => 'look_at',
+        'talk creature' => 'talk_to');
+
 
     /**
      * the final step before the game starts is you!
@@ -115,15 +119,33 @@
     $stmt->execute();
     $puppet = $stmt->fetch(PDO::FETCH_ASSOC)['puppet'];
 
-    echo "you are playing puppet number {$puppet}\n";
+    echo "You find yourself laying down on a grassy field, unconscious. As the sunlight gently caresses your face you slowly open your eyes.\nYou calmly stand up and take a look around.\n\n";
 
-    $sql = "SELECT location FROM room WHERE node = :starter_room";
+    $sql = "UPDATE user SET current_room = :start_room WHERE name = :player_name";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':player_name', $player_name);
+    $stmt->bindParam(':start_room', $starter_room);
+    $stmt->execute();
+
+    $sql = "SELECT location, description FROM room WHERE node = :starter_room";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':starter_room', $starter_room);
     $stmt->execute();
-    $room = $stmt->fetch(PDO::FETCH_ASSOC)['location'];
+    $room = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    echo "you are in room {$room}\n";
+    $sql = "SELECT name FROM creatures WHERE room = :room_node";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':room_node', $starter_room);
+    $stmt->execute();
+    $creature = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    echo "You find yourself \033[94m{$room['location']}\033[0m.\n{$room['description']}.\nYou see a \033[93m{$creature['name']}\033[0m\n";
+
+    $sql = "UPDATE user SET current_room = :starter_room WHERE name = :player_name";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':starter_room', $starter_room, PDO::PARAM_INT);
+    $stmt->bindParam(':player_name', $my_username);
+    $stmt->execute();
 
     // $sql = "UPDATE being SET current_room=:first_room WHERE id=1";
     // $stmt = $conn->prepare($sql);

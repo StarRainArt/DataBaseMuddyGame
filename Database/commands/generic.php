@@ -7,8 +7,7 @@
         /**
          * returns all commands available to the player
          */
-        echo "type commands as <command> <paramaters>\n";
-        echo "f.i. 'look dex'\n";
+        echo "type commands as <command>\n";
         echo "available commands:\n";
 
         global $text_to_magic_converter; // use 'global' at your own risk!
