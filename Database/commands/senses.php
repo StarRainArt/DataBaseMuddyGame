@@ -17,7 +17,13 @@ function look_current_room($arguments, $puppet, $conn) {
       $stmt->execute();
       $room_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-      echo "You are {$room_data['location']}.\n{$room_data['description']}.\n";
+      $sql = "SELECT name FROM creatures WHERE room = :room_node";
+      $stmt = $conn->prepare($sql);
+      $stmt->bindParam(':room_node', $current_room_id);
+      $stmt->execute();
+      $creature = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      echo "You are {$room_data['location']}.\n{$room_data['description']}.\nYou see a {$creature['name']}\n";
 }
 
 function look_directions($arguments, $puppet, $conn) {
@@ -44,5 +50,29 @@ function look_directions($arguments, $puppet, $conn) {
       foreach ($directions_data as $direction_data) {
             echo "You can go to the {$direction_data['direction']}\n";
       }
+}
+
+function look_at($arguments, $puppet, $conn) {
+      $player_name= "teacher";
+
+      $sql = "SELECT current_room FROM user WHERE name = :player_name";
+      $stmt = $conn->prepare($sql);
+      $stmt->bindParam(':player_name', $player_name);
+      $stmt->execute();
+      $current_room_id = $stmt->fetchColumn();
+
+      $sql = "SELECT node FROM room WHERE node = :current_room_id";
+      $stmt = $conn->prepare($sql);
+      $stmt->bindParam(':current_room_id', $current_room_id);
+      $stmt->execute();
+      $room_node = $stmt->fetchColumn();
+
+      $sql = "SELECT description FROM creatures WHERE room = :room_node";
+      $stmt = $conn->prepare($sql);
+      $stmt->bindParam(':room_node', $room_node);
+      $stmt->execute();
+      $creature = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      echo "{$creature['description']}\n";
 }
 ?>

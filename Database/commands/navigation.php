@@ -64,6 +64,7 @@
             echo "You are {$room_data['location']}.\n{$room_data['description']}.\n";
 
             if ($current_room_id == 12) {
+                echo "You awaken after a little while and slowly your vision clears. It seems you have come through your trip unscathed.\n\n THE END!";
                 exit();
             }
         }

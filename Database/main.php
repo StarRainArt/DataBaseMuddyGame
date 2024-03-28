@@ -91,7 +91,8 @@
         'south' => 'navigate',
         'west' => 'navigate',
         'look around' => 'look_current_room',
-        'directions' => 'look_directions');
+        'directions' => 'look_directions',
+        'look at' => 'look_at');
 
 
     /**
